@@ -2,19 +2,16 @@ package im.denz.jsonlogs;
 
 import lombok.Getter;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class KeyCountResult {
     public static String NO_EXT = "no_extension";
-    @Getter
-    protected Map<String,Long> keyCount;
-    @Getter
-    protected Map<String,Long> extCount;
+
+    protected Map<String, Set<String>> extKeys;
+
     public KeyCountResult(){
-        keyCount = Collections.synchronizedMap(new HashMap<>());
-        extCount = Collections.synchronizedMap(new HashMap<>());
+        extKeys = Collections.synchronizedMap(new HashMap<>());
     }
 
     public static String getExtension(String keyName){
@@ -26,24 +23,22 @@ public class KeyCountResult {
     }
 
     public synchronized void add(String key){
-        if(keyCount.containsKey(key)){
-            keyCount.put(key,keyCount.get(key)+1);
-            return;
-        }
-        keyCount.put(key,1L);
         String ext = getExtension(key);
-        if(extCount.containsKey(ext)){
-            extCount.put(ext, extCount.get(ext)+1);
-            return;
+        if(!extKeys.containsKey(ext)){
+            extKeys.put(ext, Collections.synchronizedSet(new HashSet<>()));
         }
-        extCount.put(ext,1L);
+        extKeys.get(ext).add(key);
     }
 
     public Long getExtCount(String ext){
-        if(extCount.containsKey(ext)){
-            return extCount.get(ext);
+        if(extKeys.containsKey(ext)){
+            return (long)extKeys.get(ext).size();
         }
         return 0L;
+    }
+
+    public Map<String, Long> getExtCount(){
+        return extKeys.entrySet().parallelStream().collect(Collectors.toMap(Map.Entry::getKey, e -> (long)e.getValue().size()));
     }
 
 }

@@ -38,8 +38,6 @@ class KeyCountResultTest {
 
         keysSets.forEach(kl -> {
             String key = kl.get(0);
-            assertTrue(subject.getKeyCount().containsKey(key));
-            assertEquals(kl.size(),subject.getKeyCount().get(key));
             String ext = KeyCountResult.getExtension(key);
             assertEquals(1,subject.getExtCount(ext));
         });

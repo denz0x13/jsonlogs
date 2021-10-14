@@ -11,7 +11,6 @@ class JsonLogProcessTest {
     void parseFile_L3_Test() throws Exception{
         String fileName = "logs3.txt";
         KeyCountResult result = JsonLogProcess.parseFile(TestHelper.getFixturePath(fileName));
-        assertFalse(result.getKeyCount().isEmpty());
         assertEquals(1,result.getExtCount("pdf"));
         assertEquals(1,result.getExtCount("ext"));
     }
@@ -20,7 +19,6 @@ class JsonLogProcessTest {
     void parseFile_L5_Test() throws Exception{
         String fileName = "logs5.txt";
         KeyCountResult result = JsonLogProcess.parseFile(TestHelper.getFixturePath(fileName));
-        assertFalse(result.getKeyCount().isEmpty());
         assertEquals(2,result.getExtCount("pdf"));
         assertEquals(2,result.getExtCount("ext"));
     }
