@@ -36,7 +36,7 @@ public class JsonLogProcess {
                 } catch (JsonProcessingException ex) {
                     log.debug(ex.getMessage());
                 }
-            })).forEach(CompletableFuture::join);
+            }, pool)).forEach(CompletableFuture::join);
         } catch (IOException ex) {
             log.error(ex.getLocalizedMessage(), ex);
         }
