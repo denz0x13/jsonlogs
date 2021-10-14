@@ -25,7 +25,7 @@ public class KeyCountResult {
         return NO_EXT;
     }
 
-    public void add(String key){
+    public synchronized void add(String key){
         if(keyCount.containsKey(key)){
             keyCount.put(key,keyCount.get(key)+1);
             return;
