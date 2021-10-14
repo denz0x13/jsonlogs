@@ -2,9 +2,7 @@ package im.denz.jsonlogs;
 
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
-import org.junit.platform.commons.util.ClassUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +48,7 @@ public class TestHelper {
         return easyRandom.nextObject(String.class);
     }
     public static String randomFileName(){
-        return String.format("%s.%s",easyRandom.nextObject(String.class),easyRandom.nextObject(String.class).substring(3));
+        return String.format("%s.%s",randomString(),randomString().substring(3));
     }
 
     public static <T> List<T> randomObjectList(Class<T> klazz, int maxSize) {
