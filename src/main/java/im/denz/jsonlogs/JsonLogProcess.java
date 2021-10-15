@@ -60,6 +60,7 @@ public class JsonLogProcess {
                         Flux::fromStream,
                         Stream::close
                 )
+                .doOnError(ex -> log.debug(ex.getMessage(),ex))
                 .window(FLUX_WINDOWS_SIZE)
                 .flatMap(w -> w.reduce(new ArrayList<String>(), (a, b) -> {
                     a.add(b);
