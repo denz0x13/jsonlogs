@@ -6,9 +6,11 @@ public class Main {
             System.out.println("Usage: java -jar jsonlogs.jar <input.file>");
             System.exit(1);
         }
-        KeyCountResult result = JsonLogProcess.parseFile(args[0]);
-        result.getExtCount().forEach((ext,count) -> {
-            System.out.println(String.format("%s: %s",ext,count));
+        KeyCountResultV2 result = JsonLogProcess.parseFileV2(args[0]);
+
+        result.getExtCount().forEach((h,res) -> {
+            System.out.println(String.format("-%d----",h));
+            res.forEach((key, value) -> System.out.println(String.format("%s: %s", key, value)));
         });
     }
 }
